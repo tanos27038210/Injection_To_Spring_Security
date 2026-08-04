@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список автомобилей</title>
+    <style>
+        table { border-collapse: collapse; width: 50%; }
+        th, td { border: 1px solid black; padding: 8px; text-align: left; }
+    </style>
+</head>
+<body>
+
+<h2>Список автомобилей</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>Модель</th>
+        <th>Серия</th>
+        <th>Год выпуска</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="car : ${cars}">
+        <td th:text="${car.model}">Марка</td>
+        <td th:text="${car.series}">Серия</td>
+        <td th:text="${car.year}">Год</td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
