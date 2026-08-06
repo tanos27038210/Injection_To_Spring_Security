@@ -14,7 +14,6 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
-    @Autowired
     public UserServiceImpl(UserRepository userDao) {
         this.userRepository = userDao;
     }
@@ -44,6 +43,6 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public void deleteUser(Long id) {
-        userRepository.deleteById((long)id);
+        userRepository.deleteById((Long)id);
     }
 }

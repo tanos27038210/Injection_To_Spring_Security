@@ -14,7 +14,6 @@ public class UserController {
 
     private final UserService userService;
 
-    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -38,8 +37,8 @@ public class UserController {
     }
 
     @GetMapping("/edit")
-    public String editUser(@RequestParam("id") int id, Model model) {
-        model.addAttribute("user", userService.getUserById((long)id));
+    public String editUser(@RequestParam("id") Long id, Model model) {
+        model.addAttribute("user", userService.getUserById((Long)id));
         return "edit";
     }
 
@@ -50,8 +49,8 @@ public class UserController {
         }
 
         @PostMapping("/delete")
-        public String deleteUser(@RequestParam("id") int id) {
-            userService.deleteUser((long)id);
+        public String deleteUser(@RequestParam("id") Long id) {
+            userService.deleteUser((Long)id);
             return "redirect:/users";
         }
 
