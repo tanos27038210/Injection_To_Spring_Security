@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Вход</title>
+</head>
+<body>
+
+<h2>Авторизация</h2>
+
+<!-- Ошибка авторизации -->
+<div th:if="${param.error}" style="color: red;">
+    Неверный логин или пароль!
+</div>
+
+<!-- Уведомление о выходе (требуется по ТЗ для logout) -->
+<div th:if="${param.logout}" style="color: green;">
+    Вы успешно вышли.
+</div>
+
+<!-- Форма входа -->
+<form th:action="@{/login}" method="post">
+    <label>Username: <input type="text" name="username" required/></label><br/><br/>
+    <label>Password: <input type="password" name="password" required/></label><br/><br/>
+    <button type="submit">Войти</button>
+</form>
+
+</body>
+</html>

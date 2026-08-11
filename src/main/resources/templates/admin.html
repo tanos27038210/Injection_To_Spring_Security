@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin panel</title>
+</head>
+
+<body>
+
+<h1>Administrator panel</h1>
+<h2>User`s list</h2>
+
+<table style="border: 1px solid black; border-collapse: collapse;">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Name</th>
+        <th>Lastname</th>
+        <th>Email</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}">123</td>
+        <td th:text="${user.username}">user</td>
+        <td th:text="${user.name}">Name</td>
+        <td th:text="${user.lastname}">Lastname</td>
+        <td th:text="${user.email}">eddy.@gmail.com</td>
+        <td>
+            <form th:action="@{/admin/delete/{id}(id=${user.id})}" method="post">
+                <button type="submit">delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<hr>
+<h2>Add new user</h2>
+<form th:action="@{/admin}" method="post">
+    <label>Username: <input type="text" name="username" required></label><br><br>
+    <label>Password: <input type="password" name="password" required></label><br><br>
+    <label>Name: <input type="text" name="name" required></label><br><br>
+    <label>Lastname: <input type="text" name="lastname" required></label><br><br>
+    <label>Email: <input type="email" name="email" required></label><br><br>
+    <button type="submit">Save</button>
+</form>
+
+<br><hr>
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Account Exit</button>
+</form>
+
+</body>
+</html>
