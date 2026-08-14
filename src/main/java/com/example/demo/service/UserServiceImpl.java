@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User getUserById(Long id) {
-        return userRepository.findById( id).orElse(null);
+        return userRepository.findById(id).orElse(null);
     }
 
     @Transactional
@@ -46,9 +46,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Transactional
     @Override
     public void updateUser(User user) {
-        if(user.getPassword() == null || user.getPassword().isEmpty()) {
+        if (user.getPassword() == null || user.getPassword().isEmpty()) {
             User existingUser = userRepository.findById(user.getId()).orElse(null);
-            if(existingUser != null) {
+            if (existingUser != null) {
                 user.setPassword(existingUser.getPassword());
             }
         } else {
@@ -60,24 +60,30 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Transactional
     @Override
     public void deleteUser(Long id) {
-        userRepository.deleteById((Long)id);
+        userRepository.deleteById((Long) id);
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) {
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        User user = userRepository.findByUsername(username);
+        User user = userRepository.findByEmail(email);
 
         if (user == null) {
-            throw new UsernameNotFoundException ("User not found" + username);
+            throw new UsernameNotFoundException("User not found" + email);
         }
-        System.out.println("Пытаемся найти пользователя: " + username);
+
         return user;
 
     }
 
     @Override
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 }
+
+//    @Override
+//    public User findByEmail(String email) {
+//        return userRepository.findByEmail(email);
+//    }
+

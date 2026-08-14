@@ -40,28 +40,28 @@ public class DataInitializer {
             roleRepository.save(userRole);
         }
 
-        // Создаем или ОБНОВЛЯЕМ админа
-        User admin = userRepository.findByUsername("admin");
+        // Ищем админа по его имэйл
+        User admin = userRepository.findByEmail("admin@admin");
         if (admin == null) {
             admin = new User();
-            admin.setUsername("admin");
+            admin.setFirstname("admin");
         }
         admin.setPassword(passwordEncoder.encode("admin"));
-        admin.setName("Larry");
-        admin.setLastname("Wachowski");
-        admin.setEmail("larry@mail.ru");
+        admin.setFirstname("admin");
+        admin.setLastname("admin");
+        admin.setEmail("admin@admin");
         admin.setRoles(Set.of(adminRole));
         userRepository.save(admin);
         System.out.println("Админ успешно создан/обновлен!");
 
-        // Создаем или ОБНОВЛЯЕМ обычного пользователя
-        User regularUser = userRepository.findByUsername("user");
+        //ищем обычного пользователя по имэйл
+        User regularUser = userRepository.findByEmail("tom@mail.ru");
         if (regularUser == null) {
             regularUser = new User();
-            regularUser.setUsername("user");
+            regularUser.setFirstname("user");
         }
         regularUser.setPassword(passwordEncoder.encode("user"));
-        regularUser.setName("Thomas");
+        regularUser.setFirstname("Thomas");
         regularUser.setLastname("Anderson");
         regularUser.setEmail("tom@mail.ru");
         regularUser.setRoles(Set.of(userRole));

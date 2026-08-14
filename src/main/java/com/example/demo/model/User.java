@@ -11,20 +11,22 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    private String username;
-    private String password;
-
-    private String name;
+    @Column(name = "firstname")
+    private String firstname;
 
     @Column(name = "last_Name")
     private String lastname;
 
+    private int age;
+    @Column(unique = true)
     private String email;
+    private String password;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
@@ -37,28 +39,27 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String name, String lastname, String email, String password, String username, Set<Role> roles) {
-        this.name = name;
+    public User(String firstname, String lastname, String email, String password, Set<Role> roles) {
+        this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.password = password;
-        this.username = username;
         this.roles = roles;
     }
 
+    //Методы интерфейса UserDetails
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
     }
 
     @Override
-    public String getUsername() {
-        return username;
-    }
-
-    @Override
     public String getPassword() {
         return password;
+    }
+
+    public String getUsername() {
+        return email; // Главный момент: для Spring Security логином является email
     }
 
     @Override
@@ -90,20 +91,19 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    public int getAge() {return age;}
+
+    public void setAge(int age) {this.age = age;}
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstname(String firstname) {this.firstname = firstname;
     }
 
     public String getLastname() {
